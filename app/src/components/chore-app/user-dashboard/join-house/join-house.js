@@ -9,9 +9,9 @@ export default {
     }
 };
 
-controller.$inject = ['houseService'];
+controller.$inject = ['houseService', '$state'];
 
-function controller(houseService) {
+function controller(houseService, $state) {
     this.joinHouseForm = false;
 
     this.toggle = function() {
@@ -26,5 +26,6 @@ function controller(houseService) {
     this.joinHouse = () => {
         houseService.join({name: this.name, code: this.code});
         this.reset();
+        $state.go('houseDashboard');
     };
 }
