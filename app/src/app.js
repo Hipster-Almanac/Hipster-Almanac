@@ -31,7 +31,7 @@ const app = angular.module('myApp', [
     angular.module('ui.router.state.events').name,
     resource,
     dialog,
-    animate
+    animate,
 ]);
 
 app.config(http);

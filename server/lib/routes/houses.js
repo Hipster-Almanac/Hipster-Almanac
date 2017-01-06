@@ -22,7 +22,7 @@ router
           .lean(),
           Chore
           .find({ houseId })
-          .select('name')
+          .select('name description target')
           .lean(),
           User
           .find(({ houseId }))
@@ -32,7 +32,7 @@ router
       .then(([house, chores, users]) => {
           let arr = users.map(item => {
               return UserChore.find({userId: item._id})
-                    .select('completed')
+                    .select('completed choreId')
                     .lean()
                     .then(chores => {
                         return item.choreUnits = chores;
@@ -92,8 +92,6 @@ router
             })
                 .catch(next);
   })
-// TODO remove this comment!  EH changed req.body.id to req.params.id
-// I think this was a typo. But, can be changed back
   .put('/:id', bodyParser, (req, res, next) => {
       House.findByIdAndUpdate(req.params.id, req.body, {new: true})
         .then(updated => res.send(updated))

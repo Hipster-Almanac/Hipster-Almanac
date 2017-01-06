@@ -8,7 +8,8 @@ export default {
         chores: '<',
         user: '<', 
         updateUser: '<',
-        id: '<'
+        id: '<',
+        house: '<'
     }
 };
 
@@ -27,12 +28,5 @@ function controller(User, Chore) {
         }
         console.log(arr);
         Chore.updateMany(arr);
-    };
-
-    this.add = chore => {
-        console.log();
-        Chore.add(chore)
-            .then(saved => this.chores.push(saved))
-            .catch(err => console.log(err));
     };
 }

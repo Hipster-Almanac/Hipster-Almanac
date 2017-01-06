@@ -6,8 +6,8 @@ export default {
     bindings: {
         chores: '<',
         user: '<', 
-        updateUser: '<',
-        id: '<'
+        id: '<',
+        add: '<'
     }
 };
 

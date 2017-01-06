@@ -18,6 +18,16 @@ describe('chores routes tests', () => {
 
     const request = chai.request(app);
 
+    let token = '';
+
+    before( done => {
+        request
+            .post('/api/auth/signup')
+            .send({ username: 'testUser', name: 'Test', password: 'pass1234'})
+            .then(res => assert.ok(token = res.body.token))
+            .then(done, done);
+    });
+
     const testChore = {
         name: 'test chore',
         target: 20,
@@ -27,6 +37,7 @@ describe('chores routes tests', () => {
     it('GETs all chores', done => {
         request
           .get('/api/chores')
+          .set('Authorization', `${token}`)
           .then(res => {
               assert.deepEqual(res.body, []);
               done();
@@ -37,6 +48,7 @@ describe('chores routes tests', () => {
     it('POSTs a chore', done => {
         request
             .post('/api/chores')
+            .set('Authorization', `${token}`)
             .send(testChore)
             .then(res => {
                 const chore = res.body;
@@ -50,6 +62,7 @@ describe('chores routes tests', () => {
     it('GETs chore by ID', done => {
         request
             .get(`/api/chores/${testChore._id}`)
+            .set('Authorization', `${token}`)
             .then(res => {
                 const chore = res.body;
                 assert.deepEqual(chore, testChore);
@@ -61,6 +74,7 @@ describe('chores routes tests', () => {
     it('DELETEs a chore', done => {
         request
             .delete(`/api/chores/${testChore._id}`)
+            .set('Authorization', `${token}`)
             .then(res => {
                 assert.deepEqual(res.body, testChore);
                 done();

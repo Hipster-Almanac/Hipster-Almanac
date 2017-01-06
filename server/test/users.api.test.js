@@ -46,17 +46,4 @@ describe('user routes tests', () => {
         .catch(done);
     });
 
-    // TODO: Need to add tests for PUT and DELETE
-
-    // it('DELETEs a user', done => {
-    //     request
-    //         .delete(`/api/users/${tester._id}`)
-    //         .set('Authorization', `${token}`)
-    //         .then(res => {
-    //             console.log(res.body);
-    //             done();
-    //         })
-    //         .catch(done);
-    // });
-
 });

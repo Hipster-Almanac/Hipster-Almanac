@@ -1,0 +1,29 @@
+<section ng-class="$ctrl.styles.houseDashBody">
+<h1>Chore Metrics for {{$ctrl.house.name}}</h1>
+    
+    <md-content layout="row" >
+        
+     <md-card layout="column" flex="20">
+            <md-radio-group ng-model="$ctrl.chartStyle" ng-change="$ctrl.updateChart()">
+
+                <md-radio-button value="pie" class="md-accent">Pie</md-radio-button>
+                <md-radio-button value="bar" class="md-accent">Bar</md-radio-button>
+
+            </md-radio-group>
+            <label>Select Chore</label>
+            <md-select ng-model="$ctrl.selectedChore" ng-change="$ctrl.updateChart()">
+                <md-option ng-value="'all'">All Chores</md-option>
+                <md-option ng-repeat="chore in $ctrl.house.chores track by $index" ng-value="chore._id">{{chore.name}}</md-option>
+            </md-select>
+        </md-input-container>
+    </md-card>   
+    
+    
+    <ui-view flex="40"></ui-view>
+    </md-content>
+</section>
+
+
+
+
+    

@@ -5,12 +5,22 @@ export default {
     template,
     controller, 
     bindings: {
+        chores: '<',
         id: '<',
         house: '<', 
-        user: '<'
+        user: '<',
+        updateUser: '<'
     }
 };
 
-function controller() {
+controller.$inject = ['choreService'];
+
+function controller(choreService) {
     this.styles = styles;
+
+    this.add = chore => {
+        choreService.add(chore)
+            .then(saved => this.house.chores.push(saved))
+            .catch(err => console.log(err));
+    };
 }

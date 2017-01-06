@@ -1,8 +1,10 @@
 <md-toolbar>
   <div class="md-toolbar-tools" ng-class="$ctrl.styles.navBar">
     <md-button ui-sref="home">Home</md-button>
+    <md-button ui-sref="about">About</md-button>
     <md-button ui-sref="userDashboard" ng-if="$ctrl.isAuthenticated()">User Dashboard</md-button>
     <md-button ui-sref="houseDashboard" ng-if="$ctrl.isAuthenticated()">House Dashboard</md-button>
+    <md-button ui-sref="charts" ng-if="$ctrl.isAuthenticated()">Metrics</md-button>
     <md-button ui-sref="userDashboard" ng-if="!$ctrl.isAuthenticated()">Sign In/Sign Up</md-button>
     <md-button ui-sref="home" ng-click="$ctrl.logout()" ng-if="$ctrl.isAuthenticated()">Log Out</md-button>
   </div>

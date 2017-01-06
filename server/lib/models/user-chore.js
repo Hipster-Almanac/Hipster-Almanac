@@ -12,5 +12,5 @@ const schema = new Schema({
     },
     completed: {}
 });
-//TODO: CamelCase Userchore???
+
 module.exports = mongoose.model('Userchore', schema);

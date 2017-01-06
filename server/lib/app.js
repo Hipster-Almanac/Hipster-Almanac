@@ -18,7 +18,6 @@ app.use(morgan('dev'));
 app.use(cors);
 app.use(express.static('./public'));
 
-//TODO: add ensureAuth to houses
 
 //add api routes here
 app.use('/api/auth', auth);

@@ -7,6 +7,7 @@
     "test": "cd app && npm i && npm test && cd ../server && npm i && npm test"
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "angular-ui-router": "^1.0.0-beta.3"
   },
   "devDependencies": {

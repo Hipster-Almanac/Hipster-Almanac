@@ -23,7 +23,6 @@ function interceptor($window, tokenService, $state) {
         responseError(response) {
             if(response.status === 403) {
                 tokenService.remove();
-                //TODO: change route if auth fails
                 $state.go('home');
             }
             return Promise.reject(response);
