@@ -1,3 +1,6 @@
+// don't duplicte this whole module, just change the export 
+// to a function that you can call with dbURI
+
 const mongoose = require( 'mongoose' );
 
 // we need a URI that points to our database

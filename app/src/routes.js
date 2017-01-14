@@ -35,6 +35,8 @@ export default function routes($stateProvider, $urlRouterProvider) {
         }
     });
 
+    // since both 'houseDashboard' and 'userDashboard' and 'charts' have same user/house data,
+    // good sign to create common abstract parent state
     $stateProvider.state({
         name: 'houseDashboard',
         url: '/house/',
