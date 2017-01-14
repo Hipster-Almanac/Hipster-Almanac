@@ -20,22 +20,18 @@ router
             const userId = req.user.id;
 
             Promise.all([
-                User.findById(req.user.id)
+                User.findById(userId)
                     .lean()
                     .then(user => {
                         if(!user) throw {
                             code: 404,
-                            error: `user ${req.user.id} does not exist`
+                            error: `user ${userId} does not exist`
                         };
                         return user;
                     }),
                 UserChore.find({userId})
                     .select('completed')
                     .lean()
-                    .then(chores => {
-                        console.log(1);
-                        return chores;
-                    })
             ])
             .then(([user, chores]) => {
                 user.choreUnits = chores;

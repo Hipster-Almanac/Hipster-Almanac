@@ -18,7 +18,7 @@ router
       Promise
       .all([
           House
-          .findById(req.params.id)
+          .findById(houseId)
           .lean(),
           Chore
           .find({ houseId })
@@ -39,15 +39,18 @@ router
                     });
           });
 
-          Promise.all(arr)
+          // if you don't return, then catch won't be called on error
+          return Promise.all(arr)
             .then(() => {
                 house.chores = chores;
                 house.users = users;
-                res.send(house);
+                return house;
             });
             
 
       })
+      // more a matter of style, good to have exit not nested above
+      .then(house => res.send(house))
       .catch(next);
   })
 
@@ -57,6 +60,7 @@ router
         .catch(next);
   })
 
+  // should be POST to /api/houses/:id/users, not /api/houses/house
   .post('/house', bodyParser, (req, res, next) => {
 
       console.log(1, req.user);
@@ -67,21 +71,21 @@ router
           query.code = req.body.code;
       }
 
-      House.find(query)
+      House.findOne(query)
             .then(house => {
                 console.log(2, house);
-                if (!house.length) {
+                if (!house) {
                     throw {
                         code: 404,
                         error: `${req.body.name} not found.`
                     };
                 }
-                if (house[0].code === req.body.code) {
+                if (house.code === req.body.code) {
                     console.log(req.user._id);
                     User.findByIdAndUpdate(req.user.id, {
-                        houseId: house[0]._id}, {new: true})
+                        houseId: house._id}, {new: true})
                             .then(user => res.send(user))
-                                .catch(next);
+                            .catch(next);
                 }
                 else if (house[0].code !== req.body.code) {
                     throw {

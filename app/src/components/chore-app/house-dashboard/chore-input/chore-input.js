@@ -13,8 +13,8 @@ export default {
     }
 };
 
-controller.$inject = ['userService', 'choreService'];
-function controller(User, Chore) {
+controller.$inject = ['choreService'];
+function controller(Chore) {
     this.styles = styles;
 
     this.enterChore = function() {

@@ -1,5 +1,4 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -16,7 +15,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }), 
-    // new ExtractTextPlugin('styles.scss')
     ],
 
     module: {
@@ -31,7 +29,6 @@ module.exports = {
             loader: 'babel-loader',
             query: {
                 cacheDirectory: true,
-        // plugins: ['transform-runtime']
             } 
 
         },

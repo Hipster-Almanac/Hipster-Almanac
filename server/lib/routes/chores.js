@@ -3,8 +3,6 @@ const router = express.Router();
 //import model(s)
 const Chore = require('../models/chore');
 const UserChore = require('../models/user-chore');
-const User = require('../models/user');
-const ensureAuth = require('../auth/ensureAuth');
 
 //middleware
 const bodyParser = require('body-parser').json();
@@ -35,6 +33,8 @@ router
             .then(saved => res.send(saved))
             .catch(next);
     })
+    // hmm, not sure what this should be (other than "many").
+    // I think a straight PATCH to /api/chores would make sense
     .put('/many', bodyParser, (req, res, next) => {
         // assume we get our data as an array of chore IDs
 
@@ -56,28 +56,23 @@ router
             }
 
             var {completed} = chore;
+            // is this a mongoose work-around?
             chore.completed = Object.create(null);
             chore.completed = completed;
 
             return chore.save();
         }
 
-        var arr = req.body.map( id => {
+        var arr = req.body.map(id => {
             return Promise.all([
                 Chore.findById(id)
+                    .then(chore => updateCompleted(chore)),
+                UserChore.findOne({choreId: id})
                     .then(chore => {
-                        return updateCompleted(chore);
-                    }),
-                UserChore.find({choreId: id})
-                    .then(chore => {
-                        if (!chore.length) {
-                            return new UserChore ({userId: req.user.id, choreId: id}).save()
-                                .then(newChore => {
-                                    return newChore;
-                                });
-                        }
-                        return updateCompleted(chore[0]);
+                        if (chore) return chore;
+                        return new UserChore ({userId: req.user.id, choreId: id}).save();
                     })
+                    .then(chore => updateCompleted(chore))
             ]);
         });
 

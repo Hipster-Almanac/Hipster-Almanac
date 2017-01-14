@@ -43,6 +43,7 @@ app.config(function($mdThemingProvider) {
         .accentPalette('green');
 }); 
 
+// what about production???
 const dev = 'http://localhost:3000/api';
 
 app.value('apiUrl', dev);
